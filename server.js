@@ -28,5 +28,9 @@ app.use("/docs/upload", function(request, response) {
   response.render("docs.hbs");
 });
 
+router.get("/", async (req, res) => {
+  res.send("home");
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`server started on ${PORT}`));
