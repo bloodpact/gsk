@@ -1,5 +1,5 @@
 const express = require("express");
-// const connectDB = require("./config/db");
+const connectDB = require("./config/db");
 const cors = require("cors");
 const path = require("path");
 const fileUpload = require("express-fileupload");
@@ -16,7 +16,7 @@ app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors(corsOptions));
 
-// connectDB();
+connectDB();
 app.use("/news", require("./routes/news"));
 app.use("/docs", require("./routes/docs"));
 app.set("views", path.join(__dirname, "views"));
