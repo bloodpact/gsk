@@ -28,7 +28,7 @@ app.use("/docs/upload", function(request, response) {
   response.render("docs.hbs");
 });
 
-router.get("/", async (req, res) => {
+app.get("/", async (req, res) => {
   res.send("home");
 });
 
