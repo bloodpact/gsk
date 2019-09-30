@@ -1,80 +1,46 @@
 const fs = require("fs");
-const readline = require("readline");
 const { google } = require("googleapis");
+const drive = google.drive("v3");
+const key = require("./private_key");
+const path = require("path");
 
-const SCOPES = ["https://www.googleapis.com/auth/drive.metadata.readonly"];
-const TOKEN_PATH = "token.json";
+const jwToken = new google.auth.JWT(
+  key.client_email,
+  null,
+  key.private_key,
+  ["https://www.googleapis.com/auth/drive"],
+  null
+);
+jwToken.authorize(authErr => {
+  if (authErr) {
+    console.log(`err: ${authErr}`);
+  } else {
+    console.log("Auth success");
+  }
+});
+const par = "1gFGHKj3DcMFb92vKpAo4ryVprVdJK2W9";
 
 const driveTest = () => {
-  fs.readFile("credentials.json", (err, content) => {
-    if (err) return console.log("Error loading client secret file:", err);
-    authorize(JSON.parse(content), listFiles);
-  });
-
-  function authorize(credentials, callback) {
-    const { client_secret, client_id, redirect_uris } = credentials.installed;
-    const oAuth2Client = new google.auth.OAuth2(
-      client_id,
-      client_secret,
-      redirect_uris[0]
-    );
-
-    fs.readFile(TOKEN_PATH, (err, token) => {
-      if (err) return getAccessToken(oAuth2Client, callback);
-      oAuth2Client.setCredentials(JSON.parse(token));
-      callback(oAuth2Client);
-    });
-  }
-
-  function getAccessToken(oAuth2Client, callback) {
-    const authUrl = oAuth2Client.generateAuthUrl({
-      access_type: "offline",
-      scope: SCOPES
-    });
-    console.log("Authorize this app by visiting this url:", authUrl);
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-    rl.question("Enter the code from that page here: ", code => {
-      rl.close();
-      oAuth2Client.getToken(code, (err, token) => {
-        if (err) return console.error("Error retrieving access token", err);
-        oAuth2Client.setCredentials(token);
-        // Store the token to disk for later program executions
-        fs.writeFile(TOKEN_PATH, JSON.stringify(token), err => {
-          if (err) return console.error(err);
-          console.log("Token stored to", TOKEN_PATH);
-        });
-        callback(oAuth2Client);
-      });
-    });
-  }
-
-  /**
-   * Lists the names and IDs of up to 10 files.
-   * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
-   */
-  function listFiles(auth) {
-    const drive = google.drive({ version: "v3", auth });
-    drive.files.list(
-      {
-        pageSize: 10,
-        fields: "nextPageToken, files(id, name)"
-      },
-      (err, res) => {
-        if (err) return console.log("The API returned an error: " + err);
-        const files = res.data.files;
-        if (files.length) {
-          console.log("Files:");
-          files.map(file => {
-            console.log(`${file.name} (${file.id})`);
-          });
-        } else {
-          console.log("No files found.");
-        }
+  return drive.files.list(
+    {
+      auth: jwToken,
+      pageSize: 10,
+      q: `'${par}' in parents and trashed=false`,
+      fields: "files(name, webViewLink)"
+    },
+    (err, { data }) => {
+      if (err) {
+        console.log(err);
       }
-    );
-  }
+      const files = data.files;
+      const resMap = files.map(file => {
+        return { name: file.name, link: file.webViewLink };
+      });
+      console.log(resMap);
+    }
+  );
 };
-module.exports = driveTest();
+var wat = driveTest;
+wat();
+
+// module.exports = driveTest();

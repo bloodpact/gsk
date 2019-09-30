@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "parkingdocs",
+  "private_key_id": "0a0892131794cc43fad1cfebc5962abc992f719a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCXd+7q+TI0hAxz\nhXbeuIJuvcz/pQSQO3DIFYtA/fhtNkh/9bA5NepkAddBVJKDMLZ5NWIEVZqFM8WJ\nmjAjoc/equECS13j/hJsvAxpL0ZtZK7qTH9kj3gHp28YOYvpogvRIzgkbJRdbtf3\nQ5lGjzEYxeZYcqKz9KRBT5euHGzIMvPG8l2X92/87NFx5Ozjq2P390GNLMeaS0UG\nA6c2KwWlhEpgxWjwvVJ7n5zLmI3wK9UBqjzvkdZ5ZjuyyySa85aXyaf0eRO3lhj2\nliH3XlPEl32bf2ACU9cqPYQ5YOERmAo8BtG7ttmTDfe/qonGOnnLhqoCLo5WNQ1u\nOGLF53JRAgMBAAECggEAEFYurig/enuNjj4kYoQ7CS+udxo4wkeu892i/dkGnNzg\nd/CrV5hRlgS+zzyMatrrq2oPDtGez2QUl7FKJOW0clsy1pkDYO5L1W941TV0nqLf\n3MRwbwusUgMEj/PQ+9tu89kdGoydefBVGcWwN/SEwpvBquN+WfN2bdbkULKfJv5x\nYI+nrd9vgyAyWZrzQ6Emp3ApNN9VaNEUSG1fVKSjyShxndwGRxlHm8sgabfqQ1Cx\nCEFWsAsnjNfM0vYSlxphfTZmfWSmiTMk6Sanh8Gcygo1Iy1aikzPlU+aWprG+I6U\nH9yklaNoA5WTmw35rn3duCFhH+1BoiMEwwIBi1E7ywKBgQDJaxc2hGmpV+N4Hp9z\ntatzFfg0KXNLcrKPX3QPwgo6fx8fvZUyXt79x08puKW69Atpw/OCMkQ3ZEKkhAZs\njwntKvI6W25I59FG59z11fAMehywSpsg5kzk6r/T/t7k2UiTR2HCx7xcCRpD51rN\nU9NQh4a5KKj8IDxSo8m96BXWgwKBgQDAg7GRGcdrZMerlNA1FrvAjEb9/wDpsAbE\n/QFbqKTTRRlRc3xDkTbpAqlISgp02TcPYOc+hPSK0bn5xijI4Y7YJEjjgoKVJLWW\nV9M0svtXlUSYyZEoJG9T9QWkH+Isxl6v9qCD3pe4l1ARMIh/bCK9Vsr21SAt7gVf\ngTpYQXpbmwKBgBH5FGEw/5y00v9s/B1/IIVseHFvIXKiEXzpr5mYXwFJRqW2bRHJ\nlWxf1JiMeX1tOXd+nMQJaDzpHWlAvrIBMYmQQ30hm3218d654eWt6XWzj8vLXHxb\nEJF8wRFRtOIG4YsC255d5FjyFv3oLxoTWM/eyA7NqgaVecyGAQKJKymxAoGALfgE\nUXKHZMR2zSjGoraf9HVKimH2tNZcd3M2fM2DNhN83S8nT/b/1pnVFDbh0k7/z8NC\n1HHo9rDnqJXBrV32vvPDF9hVGAng9lpYS3Alhh9VdupCqAQzNSf/xdX7KtffSkMo\nxvRC5Ef1TXV6UnrevLlZ06DGg1EfpVN1PBe+gNsCgYA6EKJyr4VJtrvJ783vpmqy\n7dFpxF7DFWnvqANWBkrIFLBEhoP/b7IyAOiJ9xVFS0nTYx/vykxCfQvnD1wlphvV\nTSFx0lroCfw5Xlxu6ltPohmDghY9oDAMz3BIJGYtUI0kDru55tT2lONlm+zSB67L\nXqEFIAiSKoIb7Qi4+qo2ag==\n-----END PRIVATE KEY-----\n",
+  "client_email": "parkingapi@parkingdocs.iam.gserviceaccount.com",
+  "client_id": "114959271008651526431",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/parkingapi%40parkingdocs.iam.gserviceaccount.com"
+}
