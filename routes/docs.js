@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const Docs = require("../models/Docs");
+const driveTest = require("../test");
+
+router.get("/", (req, res) => {
+  res.send(driveTest);
+});
+
 router.post("/", async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send("No files were uploaded.");
