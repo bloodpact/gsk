@@ -21,9 +21,6 @@ app.use("/news", require("./routes/news"));
 app.use("/docs", require("./routes/docs"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-app.use("/news/post", function(request, response) {
-  response.render("news.hbs");
-});
 app.use("/docs/upload", function(request, response) {
   response.render("docs.hbs");
 });

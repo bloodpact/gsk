@@ -1,8 +1,8 @@
-const fs = require("fs");
+const express = require("express");
+const router = express.Router();
 const { google } = require("googleapis");
 const drive = google.drive("v3");
-const key = require("./private_key");
-const path = require("path");
+const key = require("../private_key");
 
 const jwToken = new google.auth.JWT(
   key.client_email,
@@ -18,14 +18,13 @@ jwToken.authorize(authErr => {
     console.log("Auth success");
   }
 });
-const par = "1gFGHKj3DcMFb92vKpAo4ryVprVdJK2W9";
-
-const driveTest = () => {
+const parent = "1gFGHKj3DcMFb92vKpAo4ryVprVdJK2W9";
+router.get("/", (req, res) => {
   return drive.files.list(
     {
       auth: jwToken,
-      pageSize: 10,
-      q: `'${par}' in parents and trashed=false`,
+      pageSize: 100,
+      q: `'${parent}' in parents and trashed=false`,
       fields: "files(name, webViewLink)"
     },
     (err, { data }) => {
@@ -36,11 +35,8 @@ const driveTest = () => {
       const resMap = files.map(file => {
         return { name: file.name, link: file.webViewLink };
       });
-      console.log(resMap);
+      res.json(resMap);
     }
   );
-};
-var wat = driveTest;
-wat();
-
-// module.exports = driveTest();
+});
+module.exports = router;
