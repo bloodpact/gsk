@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const cors = require("cors");
+const exphbs = require("express-handlebars");
 const path = require("path");
 const fileUpload = require("express-fileupload");
 const corsOptions = {
@@ -20,13 +21,12 @@ connectDB();
 app.use("/news", require("./routes/news"));
 app.use("/docs", require("./routes/docs"));
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
-app.use("/docs/upload", function(request, response) {
-  response.render("docs.hbs");
-});
 
-app.get("/", async (req, res) => {
-  res.send("home");
+app.engine("handlebars", exphbs());
+app.set("view engine", "handlebars");
+
+app.use("/docs/upload", function(request, response) {
+  response.render("docs.handlebars");
 });
 
 const PORT = process.env.PORT || 5000;

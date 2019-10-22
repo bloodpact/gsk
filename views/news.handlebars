@@ -1,0 +1,68 @@
+
+
+<div class="container mt">
+<div class="row">
+    <form action="/news" method="POST" class="col s12">
+        <h3 class="grey-text text-darken-1">Форма ввода новостей</h3>
+        <div class="row ">
+            <div class="input-field col s6 z-depth-5">
+                <input  id="title" type="text" name="title"  class="validate">
+                <label for="title">Заголовок</label>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="input-field col s6 z-depth-5">
+                <textarea id="article" name="article" class="materialize-textarea h100"></textarea>
+                <label for="article">Текст</label>
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" class="waves-effect waves-light btn" value="Добавить новость">
+        </div>
+    </form>
+</div>
+        <ul class="collection with-header">
+{{#each news}}
+    <li class="collection-item">
+        <h5 class="title center">{{title}}</h5>
+       {{article}}<br>
+    <ul class="collapsible">
+        <li>
+            <div class="collapsible-header waves-effect waves-light blue">РЕДАКТИРОВАТЬ</div>
+            <div class="collapsible-body">
+                <form action="/news/update/{{id}}?_method=PUT" method="POST" class="col s12">
+                <h3 class="grey-text text-darken-1">Форма редактирования</h3>
+                <div class="row ">
+                    <div class="input-field col s6 z-depth-5">
+                        <input  id="title" type="text" name="title" value={{title}}  class="validate">
+                        <label for="title">Заголовок</label>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="input-field col s6 z-depth-5">
+                        <textarea id="article" name="article" class="materialize-textarea h100">{{article}}</textarea>
+                        <label for="article">Текст</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="submit" class="waves-effect waves-light btn" value="Завершить редактирование">
+                </div>
+            </form>
+            </div>
+        </li>
+    </ul>
+        <form action="/news/delete/{{id}}?_method=DELETE" method="POST">
+            <input  class="with-header waves-effect waves-light btn red" type="submit"  value="Удалить"/>
+        </form>
+    </li>
+{{/each}}
+        </ul>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const options ={}
+        var elems = document.querySelectorAll('.collapsible');
+        var instances = M.Collapsible.init(elems, options);
+    });
+</script>
