@@ -1,0 +1,37 @@
+
+
+<div class="container mt">
+    <div class="row">
+        <form action="/users/edit/{{user._id}}?_method=PUT" method="POST" class="col s12">
+            <h3 class="grey-text text-darken-1">Форма редактирования данных пайщика </h3>
+            <div class="row ">
+                <div class="input-field col s6 z-depth-5">
+                    <input  id="number" type="text" name="number" value="{{user.number}}"  class="validate">
+                    <label for="number">Номер</label>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="input-field col s6 z-depth-5">
+                    <input  id="phone" type="text" name="phone" value="{{user.phone}}"  class="validate">
+                    <label for="phone">телефон</label>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="input-field col s6 z-depth-5">
+                    <input  id="fio" type="text" name="fio" value="{{user.fio}} " class="validate">
+                    <label for="fio">ФИО</label>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="input-field col s6 z-depth-5">
+                    <input  id="email" type="email" name="email" value="{{user.email}}"  class="validate">
+                    <label for="email">email</label>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" class="waves-effect waves-light btn" value="Редактировать">
+            </div>
+        </form>
+    </div>
+</div>
+

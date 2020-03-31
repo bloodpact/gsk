@@ -19,14 +19,15 @@ app.use(cors(corsOptions));
 
 connectDB();
 app.use("/news", require("./routes/news"));
+app.use("/users", require("./routes/users"));
 app.use("/docs", require("./routes/docs"));
+app.use("/data", require("./routes/dataTable"));
 app.set("views", path.join(__dirname, "views"));
 
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
-
-app.use("/docs/upload", function(request, response) {
-  response.render("docs.handlebars");
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
 const PORT = process.env.PORT || 5000;

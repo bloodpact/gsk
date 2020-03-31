@@ -4,7 +4,7 @@ const router = express.Router();
 const News = require("../models/News");
 router.get("/", async (req, res) => {
   try {
-    const news = await News.find({ news: req.body.title }).sort({
+    const news = await News.find().sort({
       date: -1
     });
     res.json(news);
@@ -15,11 +15,11 @@ router.get("/", async (req, res) => {
 });
 router.get("/list", async (req, res) => {
   try {
-    const news = await News.find({ news: req.body.title }).sort({
+    const news = await News.find().sort({
       date: -1
     });
-    res.render("news", {
-      news: news
+    res.render("news/news", {
+      news
     });
   } catch (e) {
     res.status(500).send("internal server error");
