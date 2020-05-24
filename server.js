@@ -13,8 +13,8 @@ const corsOptions = {
 };
 const app = express();
 app.use(fileUpload());
-app.use(express.json({ extended: false }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "10mb", extended: true }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cors(corsOptions));
 
 connectDB();
@@ -22,6 +22,7 @@ app.use("/news", require("./routes/news"));
 app.use("/users", require("./routes/users"));
 app.use("/docs", require("./routes/docs"));
 app.use("/data", require("./routes/dataTable"));
+app.use("/email", require("./routes/mail"));
 app.set("views", path.join(__dirname, "views"));
 
 app.engine("handlebars", exphbs());

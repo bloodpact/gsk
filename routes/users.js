@@ -14,7 +14,12 @@ router.post("/login", async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ msg: "неправильный пароль" });
     } else {
-      res.send({ id: user._id, number: user.number, taxData: user.taxData });
+      res.send({
+        id: user._id,
+        number: user.number,
+        email: user.email,
+        taxData: user.taxData
+      });
     }
   } catch (e) {
     console.error(e.message);
@@ -25,7 +30,23 @@ router.post("/passUpdate", async (req, res) => {
   try {
     const password = await bcrypt.hash(req.body.password, 12);
     await Users.findByIdAndUpdate(req.body.id, { password });
-    res.send("success upd");
+    // const user = await Users.findById({ _id: req.body.id });
+    res.send("pass updated");
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send("internal error");
+  }
+});
+router.post("/emailUpdate", async (req, res) => {
+  try {
+    await Users.findByIdAndUpdate(req.body.id, { email: req.body.email });
+    const user = await Users.findById({ _id: req.body.id });
+    res.send({
+      id: user._id,
+      number: user.number,
+      email: user.email,
+      taxData: user.taxData
+    });
   } catch (e) {
     console.error(e.message);
     res.status(500).send("internal error");

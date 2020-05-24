@@ -28,6 +28,7 @@ const UsersSchema = mongoose.Schema({
       owner: String,
       place: String,
       summ: String,
+      QR: String,
       service: {
         serviceName: String,
         serviceAmount: String,

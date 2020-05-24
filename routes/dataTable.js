@@ -50,16 +50,6 @@ router.post("/tableData", async (req, res) => {
   }
   // res.send("POST");
 });
-//get req to send to Front
-// router.get("/:number", async (req, res) => {
-//   try {
-//     const user = await Users.find({ number: req.params.number });
-//     res.json(user);
-//   } catch (e) {
-//     res.status(500).send("internal server error");
-//     console.error(e.message);
-//   }
-// });
 router.get("/", async (req, res) => {
   try {
     const tableData = await TarifData.find();
