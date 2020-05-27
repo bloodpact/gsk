@@ -96,14 +96,16 @@ router.get("/load", async (req, res) => {
       { header: "Место", key: "id", width: 10 },
       { header: "ФИО", key: "fio", width: 32 },
       { header: "Пароль", key: "pass", width: 32 },
-      { header: "Email", key: "email", width: 32 }
+      { header: "Email", key: "email", width: 32 },
+      { header: "Телефон", key: "phone", width: 32 }
     ];
     users.forEach(u => {
       worksheet.addRow({
         id: u.number,
         fio: u.fio,
         pass: u.oldPassword,
-        email: u.email
+        email: u.email,
+        phone: u.phone
       });
     });
     res.attachment("./users.xls");
