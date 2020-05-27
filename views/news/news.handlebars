@@ -30,7 +30,7 @@
         <li>
             <div class="collapsible-header waves-effect waves-light blue">РЕДАКТИРОВАТЬ</div>
             <div class="collapsible-body">
-                <form action="/news/update/{{id}}?_method=PUT" method="POST" class="col s12">
+                <form action="/news/update/{{_id}}?_method=PUT" method="POST" class="col s12">
                 <h3 class="grey-text text-darken-1">Форма редактирования</h3>
                 <div class="row ">
                     <div class="input-field col s6 z-depth-5">
@@ -51,7 +51,7 @@
             </div>
         </li>
     </ul>
-        <form action="/news/delete/{{id}}?_method=DELETE" method="POST">
+        <form action="/news/delete/{{_id}}?_method=DELETE" method="POST">
             <input  class="with-header waves-effect waves-light btn red" type="submit"  value="Удалить"/>
         </form>
     </li>

@@ -85,7 +85,7 @@ router.post("/register", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
-router.get("/load", async (req, res, next) => {
+router.get("/load", async (req, res) => {
   try {
     const users = await Users.find();
     const workbook = new ExcelJS.Workbook();

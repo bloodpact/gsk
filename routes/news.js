@@ -19,8 +19,9 @@ router.get("/list", async (req, res) => {
       date: -1
     });
     res.render("news/news", {
-      //news for hbs 4.5.0
-      news: news.map(kitten => kitten.toJSON())
+      //news
+      //for hbs 4.5.0
+      news: news.map(newsItem => newsItem.toJSON())
     });
   } catch (e) {
     res.status(500).send("internal server error");
