@@ -132,7 +132,7 @@ router.post("/delete/:id", async (req, res) => {
 router.get("/edit/:id", async (req, res) => {
   try {
     const user = await Users.findById(req.params.id);
-    res.render("users/editUser", { user });
+    res.render("users/editUser", { user: user.toJSON() });
   } catch (e) {
     console.error(e.message);
     res.status(500).send("internal error");
