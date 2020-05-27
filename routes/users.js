@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const ExcelJS = require("exceljs");
 const passGen = require("../config/passGen");
 const Users = require("../models/Users");
 //API from front req
@@ -57,7 +58,7 @@ router.get("/", async (req, res) => {
   try {
     const users = await Users.find();
     res.render("users/userList", {
-      users
+      users: users.map(user => user.toJSON())
     });
   } catch (e) {
     console.error(e.message);
@@ -82,6 +83,33 @@ router.post("/register", async (req, res) => {
   } catch (e) {
     console.error(e.message);
     res.status(500).send("internal error");
+  }
+});
+router.get("/load", async (req, res, next) => {
+  try {
+    const users = await Users.find();
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("sheet", {
+      pageSetup: { paperSize: 9, orientation: "landscape" }
+    });
+    worksheet.columns = [
+      { header: "Место", key: "id", width: 10 },
+      { header: "ФИО", key: "fio", width: 32 },
+      { header: "Пароль", key: "pass", width: 32 },
+      { header: "Email", key: "email", width: 32 }
+    ];
+    users.forEach(u => {
+      worksheet.addRow({
+        id: u.number,
+        fio: u.fio,
+        pass: u.oldPassword,
+        email: u.email
+      });
+    });
+    res.attachment("./users.xls");
+    await workbook.xlsx.write(res);
+  } catch (e) {
+    console.log(e);
   }
 });
 router.get("/register", async (req, res) => {
