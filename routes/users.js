@@ -150,7 +150,24 @@ router.post("/edit/:id", async (req, res) => {
     console.error(e.message);
   }
 });
-
+router.post("/filter", async (req, res) => {
+  try {
+    const users = await Users.find();
+    if (req.body.place && req.body.place <= 270) {
+      const place = users.filter(place => {
+        return place.number === req.body.place;
+      });
+      res.render("users/userList", {
+        place: place[0].toJSON()
+      });
+    } else {
+      res.redirect("/users");
+    }
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send("internal error");
+  }
+});
 //load all users data
 router.post("/loadUsers", async (req, res) => {
   try {

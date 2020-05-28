@@ -2,6 +2,44 @@
     <a href="/users/register">Добавить пайщика</a><br>
     <a href="/users/load">Выгрузить данные логин/пароль</a>
     <ul class="collection with-header">
+        <form action="/users/filter" method='POST'>
+            <label for="place">Фильтр по номеру места:</label><br>
+            <input type="text" id="place" name="place"><br>
+            <button class="waves-effect waves-light green btn" type="submit">Отфильтровать</button>
+        </form>
+        {{#if place}}
+                <li class="collection-item">
+                    <h5 class="title center">Номер места: {{place.number}}</h5>
+                    <div>
+                        <h5 class="grey-text text-darken-1">Данные пайщика</h5>
+                        <div class="row ">
+                            <div class="input-field col s6 z-depth-5">
+                                <p>Имя: {{place.fio}}</p>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="input-field col s6 z-depth-5">
+                                <p>email: {{place.email}}</p>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="input-field col s6 z-depth-5">
+                                <p>телефон: {{place.phone}}</p>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="input-field col s6 z-depth-5">
+                                <p>первый пароль: {{place.oldPassword}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action="/users/delete/{{_id}}?_method=DELETE" method="POST">
+                        <a href="/users/edit/{{_id}}" class="with-header waves-effect  waves-light blue btn">Редактировать</a>
+                        <input  class="with-header waves-effect waves-light btn red" type="submit"  value="Удалить"/>
+                    </form>
+                </li>
+            {{/if}}
         {{#each users}}
             <li class="collection-item">
                 <h5 class="title center">Номер места: {{number}}</h5>
