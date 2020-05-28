@@ -2,7 +2,9 @@ const express = require("express");
 const connectDB = require("./config/db");
 const cors = require("cors");
 const exphbs = require("express-handlebars");
+const CryptoJS = require("crypto-js");
 const path = require("path");
+const session = require("express-session");
 const fileUpload = require("express-fileupload");
 const corsOptions = {
   origin: "*",
@@ -16,6 +18,13 @@ app.use(fileUpload());
 app.use(express.json({ limit: "10mb", extended: true }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cors(corsOptions));
+app.use(
+  session({
+    secret: "hello kitty",
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 connectDB();
 app.use("/news", require("./routes/news"));
@@ -26,9 +35,25 @@ app.use("/email", require("./routes/mail"));
 app.set("views", path.join(__dirname, "views"));
 
 app.engine("handlebars", exphbs());
+
 app.set("view engine", "handlebars");
+app.post("/", async (req, res) => {
+  const originalPass = CryptoJS.AES.decrypt(
+    "U2FsdGVkX18dH5SmIH6Px/wuCDimo8L/C1qkmHb/sO0GaThHOk6KH+gZqsOElaCp",
+    "secret key 123"
+  ).toString(CryptoJS.enc.Utf8);
+  if (req.body.log === originalPass) {
+    req.session.logged = true;
+    req.session.save(err => {
+      console.log(err);
+      res.redirect("/");
+    });
+  } else {
+    res.redirect("/");
+  }
+});
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { logged: req.session.logged });
 });
 
 const PORT = process.env.PORT || 5000;

@@ -27,8 +27,23 @@
 </head>
 
 <body>
-{{>_navbar}}
-{{{body}}}
-
+{{#if logged}}
+    {{>_navbar}}
+    {{{body}}}
+{{else}}
+<div class="container">
+    <form action="/" method="post">
+        <div class="row">
+            <div class="input-field col s6 z-depth-5">
+                <input id="log" name="log" value="" type="text"/>
+                <label for="log">Login</label>
+            </div>
+        </div>
+        <div class="row">
+            <button class="waves-effect waves-light btn"  type="submit">Login</button>
+        </div>
+    </form>
+</div>
+{{/if}}
 </body>
 </html>

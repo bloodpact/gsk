@@ -58,7 +58,8 @@ router.get("/", async (req, res) => {
   try {
     const users = await Users.find();
     res.render("users/userList", {
-      users: users.map(user => user.toJSON())
+      users: users.map(user => user.toJSON()),
+      logged: req.session.logged
     });
   } catch (e) {
     console.error(e.message);
@@ -116,7 +117,7 @@ router.get("/load", async (req, res) => {
 });
 router.get("/register", async (req, res) => {
   try {
-    res.render("users/userReg");
+    res.render("users/userReg", { logged: req.session.logged });
   } catch (e) {
     console.error(e.message);
     res.status(500).send("internal error");
@@ -134,7 +135,10 @@ router.post("/delete/:id", async (req, res) => {
 router.get("/edit/:id", async (req, res) => {
   try {
     const user = await Users.findById(req.params.id);
-    res.render("users/editUser", { user: user.toJSON() });
+    res.render("users/editUser", {
+      user: user.toJSON(),
+      logged: req.session.logged
+    });
   } catch (e) {
     console.error(e.message);
     res.status(500).send("internal error");
@@ -158,7 +162,8 @@ router.post("/filter", async (req, res) => {
         return place.number === req.body.place;
       });
       res.render("users/userList", {
-        place: place[0].toJSON()
+        place: place[0].toJSON(),
+        logged: req.session.logged
       });
     } else {
       res.redirect("/users");
@@ -190,4 +195,5 @@ router.post("/loadUsers", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
+
 module.exports = router;
