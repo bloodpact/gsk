@@ -7,7 +7,6 @@ router.get("/", async (req, res) => {
   const rates = await Rates.find().sort({
     query: -1
   });
-  console.log(rates);
   res.render("rates/rates", {
     rates: rates.map(ratesItem => {
       return ratesItem.toJSON();
@@ -29,12 +28,12 @@ router.get("/api", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const maxQuery = await Rates.find()
-      .sort({ age: -1 })
+      .sort({ query: -1 })
       .limit(1);
     const newRates = new Rates({
       month: req.body.month,
       sum: req.body.sum.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1 "),
-      query: maxQuery + 1
+      query: maxQuery[0].query + 1
     });
     await newRates.save();
     res.redirect("/rates");
