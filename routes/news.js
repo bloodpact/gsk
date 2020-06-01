@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     const news = await News.find().sort({
       date: -1
     });
-    res.json(news);
+    await res.json(news);
   } catch (e) {
     res.status(500).send("internal server error");
     console.error(e.message);

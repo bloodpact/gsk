@@ -32,6 +32,7 @@ app.use("/users", require("./routes/users"));
 app.use("/docs", require("./routes/docs"));
 app.use("/data", require("./routes/dataTable"));
 app.use("/email", require("./routes/mail"));
+app.use("/rates", require("./routes/rates"));
 app.set("views", path.join(__dirname, "views"));
 
 app.engine("handlebars", exphbs());
