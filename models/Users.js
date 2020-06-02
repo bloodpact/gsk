@@ -12,6 +12,10 @@ const UsersSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  newPassword: {
+    type: String,
+    required: true
+  },
   fio: {
     type: String
   },

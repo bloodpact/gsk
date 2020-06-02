@@ -30,7 +30,10 @@ router.post("/login", async (req, res) => {
 router.post("/passUpdate", async (req, res) => {
   try {
     const password = await bcrypt.hash(req.body.password, 12);
-    await Users.findByIdAndUpdate(req.body.id, { password });
+    await Users.findByIdAndUpdate(req.body.id, {
+      password: password,
+      newPassword: password
+    });
     // const user = await Users.findById({ _id: req.body.id });
     res.send("pass updated");
   } catch (e) {
