@@ -164,10 +164,18 @@ router.post("/filter", async (req, res) => {
       const place = users.filter(place => {
         return place.number === req.body.place;
       });
-      res.render("users/userList", {
-        place: place[0].toJSON(),
-        logged: req.session.logged
-      });
+      if (place[0] === undefined) {
+        res.render("users/userList", {
+          users: users.map(user => user.toJSON()),
+          notfound: "пользователь не найден",
+          logged: req.session.logged
+        });
+      } else {
+        res.render("users/userList", {
+          place: place[0].toJSON(),
+          logged: req.session.logged
+        });
+      }
     } else {
       res.redirect("/users");
     }

@@ -1,11 +1,15 @@
 <div class="container mt">
     <a href="/users/register">Добавить пайщика</a><br>
     <a href="/users/load">Выгрузить данные логин/пароль</a>
+    {{# if notfound}}
+        <p> {{notfound}}</p>
+    {{/if}}
     <ul class="collection with-header">
         <form action="/users/filter" method='POST'>
             <label for="place">Фильтр по номеру места:</label><br>
             <input type="text" id="place" name="place"><br>
             <button class="waves-effect waves-light green btn" type="submit">Отфильтровать</button>
+
         </form>
         {{#if place}}
                 <li class="collection-item">
