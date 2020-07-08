@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
   });
   res.render("rates/rates", {
     rates: rates.map(ratesItem => {
+      ratesItem.sum = ratesItem.sum.replace(/\s+/g, "").trim();
       return ratesItem.toJSON();
     }),
     logged: req.session.logged
@@ -19,6 +20,7 @@ router.get("/api", async (req, res) => {
     const rates = await Rates.find().sort({
       query: -1
     });
+
     await res.json(rates);
   } catch (e) {
     res.status(500).send("internal server error");
@@ -44,6 +46,18 @@ router.post("/", async (req, res) => {
 router.post("/delete/:id", async (req, res) => {
   try {
     await Rates.findByIdAndRemove(req.params.id);
+    res.redirect("/rates");
+  } catch (e) {
+    res.status(500).send("internal server error");
+    console.error(e.message);
+  }
+});
+router.post("/update/:id", async (req, res) => {
+  try {
+    await Rates.findByIdAndUpdate(req.params.id, {
+      month: req.body.month,
+      sum: req.body.sum.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1 ")
+    });
     res.redirect("/rates");
   } catch (e) {
     res.status(500).send("internal server error");
