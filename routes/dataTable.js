@@ -7,17 +7,23 @@ const Users = require("../models/Users");
 //post req from 1c to save on DB
 router.post("/", async (req, res) => {
   try {
+    console.log(req.body);
     for (const reqEl of req.body) {
       //get the exact place
       const user = await Users.findOne({ number: reqEl.place });
-      //git rid of same date from 1C and merge them into array
-      const newTaxData = _.concat(user.taxData, reqEl);
-      const uniqueTaxData = _.uniqBy(newTaxData, "date");
-      await Users.findOneAndUpdate(
-        { number: reqEl.place },
-        { taxData: uniqueTaxData },
-        { upsert: true, useFindAndModify: false }
-      );
+      //check for existence of place in DB
+      if (user) {
+        //git rid of same date from 1C and merge them into array
+        const newTaxData = _.concat(user.taxData, reqEl);
+        const uniqueTaxData = _.uniqBy(newTaxData, "date");
+        await Users.findOneAndUpdate(
+          { number: reqEl.place },
+          { taxData: uniqueTaxData },
+          { upsert: true, useFindAndModify: false }
+        );
+      } else {
+        console.log("fill the data in 1c");
+      }
     }
     res.send("/users");
   } catch (e) {
