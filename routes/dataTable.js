@@ -7,7 +7,6 @@ const Users = require("../models/Users");
 //post req from 1c to save on DB
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
     for (const reqEl of req.body) {
       //get the exact place
       const user = await Users.findOne({ number: reqEl.place });
@@ -22,7 +21,7 @@ router.post("/", async (req, res) => {
           { upsert: true, useFindAndModify: false }
         );
       } else {
-        console.log("fill the data in 1c");
+        console.log(`fill the data in 1c ${reqEl.place}`);
       }
     }
     res.send("/users");
