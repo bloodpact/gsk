@@ -1,8 +1,0 @@
-node_modules/
-.idea
-config/default.json
-config/serverData.json
-credentials.json
-private_key.json
-token.json
-.gitignore
