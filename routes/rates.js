@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const moment = require("moment");
 const fs = require("fs");
+
 const Rates = require("../models/Rates");
+
 router.get("/", async (req, res) => {
   const rates = await Rates.find().sort({
     query: -1
@@ -15,6 +17,7 @@ router.get("/", async (req, res) => {
     logged: req.session.logged
   });
 });
+
 router.get("/api", async (req, res) => {
   try {
     const rates = await Rates.find().sort({
@@ -27,6 +30,7 @@ router.get("/api", async (req, res) => {
     console.error(e.message);
   }
 });
+
 router.post("/", async (req, res) => {
   try {
     const maxQuery = await Rates.find()
@@ -43,6 +47,7 @@ router.post("/", async (req, res) => {
     console.log(e);
   }
 });
+
 router.post("/delete/:id", async (req, res) => {
   try {
     await Rates.findByIdAndRemove(req.params.id);
@@ -52,6 +57,7 @@ router.post("/delete/:id", async (req, res) => {
     console.error(e.message);
   }
 });
+
 router.post("/update/:id", async (req, res) => {
   try {
     await Rates.findByIdAndUpdate(req.params.id, {
@@ -64,6 +70,7 @@ router.post("/update/:id", async (req, res) => {
     console.error(e.message);
   }
 });
+
 router.get("/load", async (req, res) => {
   fs.readFile("./routes/rates.json", "utf8", function(error, data) {
     JSON.parse(data).forEach(el => {
@@ -77,4 +84,5 @@ router.get("/load", async (req, res) => {
   });
   res.redirect("/rates");
 });
+
 module.exports = router;

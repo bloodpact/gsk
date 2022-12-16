@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const News = require("../models/News");
+
 router.get("/", async (req, res) => {
   try {
     const news = await News.find().sort({
@@ -13,6 +14,7 @@ router.get("/", async (req, res) => {
     console.error(e.message);
   }
 });
+
 router.get("/list", async (req, res) => {
   try {
     const news = await News.find().sort({
@@ -54,6 +56,7 @@ router.post("/delete/:id", async (req, res) => {
     console.error(e.message);
   }
 });
+
 router.post("/update/:id", async (req, res) => {
   const { title, article } = req.body;
   try {
@@ -67,4 +70,5 @@ router.post("/update/:id", async (req, res) => {
     console.error(e.message);
   }
 });
+
 module.exports = router;

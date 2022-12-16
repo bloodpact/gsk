@@ -27,6 +27,7 @@ router.post("/login", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
+
 router.post("/passUpdate", async (req, res) => {
   try {
     const password = await bcrypt.hash(req.body.password, 12);
@@ -41,6 +42,7 @@ router.post("/passUpdate", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
+
 router.post("/emailUpdate", async (req, res) => {
   try {
     await Users.findByIdAndUpdate(req.body.id, { email: req.body.email });
@@ -56,6 +58,7 @@ router.post("/emailUpdate", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
+
 //API from server req
 router.get("/", async (req, res) => {
   try {
@@ -89,6 +92,7 @@ router.post("/register", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
+
 router.get("/load", async (req, res) => {
   try {
     const users = await Users.find();
@@ -118,6 +122,7 @@ router.get("/load", async (req, res) => {
     console.log(e);
   }
 });
+
 router.get("/register", async (req, res) => {
   try {
     res.render("users/userReg", { logged: req.session.logged });
@@ -126,6 +131,7 @@ router.get("/register", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
+
 router.post("/delete/:id", async (req, res) => {
   try {
     await Users.findByIdAndRemove(req.params.id);
@@ -135,6 +141,7 @@ router.post("/delete/:id", async (req, res) => {
     console.error(e.message);
   }
 });
+
 router.get("/edit/:id", async (req, res) => {
   try {
     const user = await Users.findById(req.params.id);
@@ -147,6 +154,7 @@ router.get("/edit/:id", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
+
 router.post("/edit/:id", async (req, res) => {
   const { number, phone, fio, email } = req.body;
   try {
@@ -157,6 +165,7 @@ router.post("/edit/:id", async (req, res) => {
     console.error(e.message);
   }
 });
+
 router.post("/filter", async (req, res) => {
   try {
     const users = await Users.find();
@@ -184,6 +193,7 @@ router.post("/filter", async (req, res) => {
     res.status(500).send("internal error");
   }
 });
+
 //load all users data
 router.post("/loadUsers", async (req, res) => {
   try {

@@ -1,13 +1,16 @@
 const nodeMailer = require("nodemailer");
+const serverData = require("./serverData");
+
 const transportOpts = {
   host: "smtp.mail.ru",
   port: 465,
   secure: true,
   auth: {
-    user: "gsksh3@mail.ru",
-    pass: "7810942852gsk"
+    user: serverData.mailData.user,
+    pass: serverData.mailData.pass
   }
 };
+
 module.exports = {
   mailer: async function(address, place) {
     let transporter = nodeMailer.createTransport(transportOpts);

@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/Users");
 
 const { mailer } = require("../config/mailHelper");
+
 router.post("/", (req, res) => {
   mailer(req.body.email, req.body.place)
     .then(res.end())
